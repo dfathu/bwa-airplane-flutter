@@ -1,5 +1,5 @@
 import 'package:bwa_airplane/shared/theme.dart';
-import 'package:bwa_airplane/ui/pages/Splash_pages.dart';
+import 'package:bwa_airplane/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class GetStartedPage extends StatelessWidget {
@@ -8,7 +8,6 @@ class GetStartedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
       body: Stack(
         children: [
           Container(
@@ -39,33 +38,13 @@ class GetStartedPage extends StatelessWidget {
                       whiteTextStyle.copyWith(fontSize: 16, fontWeight: light),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
+                CustomButton(
                     width: 220,
-                    height: 55,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: kPrimaryColor,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(17))),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SplashPage()));
-                        },
-                        child: Text(
-                          'Get Started',
-                          style: whiteTextStyle.copyWith(
-                              fontSize: 18, fontWeight: medium),
-                        ))),
-                SizedBox(
-                  height: 80,
-                ),
+                    margin: EdgeInsets.only(top: 50, bottom: 80),
+                    title: 'Get Started',
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/sign-up');
+                    })
               ],
             ),
           )
