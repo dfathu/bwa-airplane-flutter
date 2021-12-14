@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "993021453788",
+    "firebase_url": "https://my-doctor-01-1825f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "my-doctor-01-1825f",
+    "storage_bucket": "my-doctor-01-1825f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993021453788:android:4c461f6fabfbfb9ace1b19",
+        "android_client_info": {
+          "package_name": "com.dfathu.bwa_airplane"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993021453788-1l7ipdj7jms8dvrfm2o6kj7dpcrlssud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAod5w-M5rVfxkuyr2MNInmdJNRl2Lgtm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993021453788-1l7ipdj7jms8dvrfm2o6kj7dpcrlssud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
