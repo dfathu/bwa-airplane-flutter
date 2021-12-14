@@ -1,12 +1,28 @@
+import 'package:bwa_airplane/cubit/page_cubit.dart';
 import 'package:bwa_airplane/shared/theme.dart';
+import 'package:bwa_airplane/ui/pages/home_page.dart';
+import 'package:bwa_airplane/ui/pages/transaction_page.dart';
+// import 'package:bwa_airplane/ui/pages/transaction_page.dart';
 import 'package:bwa_airplane/ui/widgets/custom_bottom_navigation_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Widget buildContent(int currentIndex) {
+      switch (currentIndex) {
+        case 0:
+          return HomePage();
+        case 1:
+          return TransactionPage();
+        default:
+          return HomePage();
+      }
+    }
+
     Widget customBottomNavigation() {
       return Align(
         alignment: Alignment.bottomCenter,
@@ -22,14 +38,19 @@ class MainPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomBottomNavigationItem(
-                  imageUrl: 'assets/icons/icon_home.png', isSelected: true),
+                index: 0,
+                imageUrl: 'assets/icons/icon_home.png',
+              ),
               CustomBottomNavigationItem(
+                index: 1,
                 imageUrl: 'assets/icons/icon_booking.png',
               ),
               CustomBottomNavigationItem(
+                index: 2,
                 imageUrl: 'assets/icons/icon_card.png',
               ),
               CustomBottomNavigationItem(
+                index: 3,
                 imageUrl: 'assets/icons/icon_setting.png',
               ),
             ],
@@ -38,13 +59,17 @@ class MainPage extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: SafeArea(
-        child: Stack(
-          children: [Text('Main Page'), customBottomNavigation()],
-        ),
-      ),
+    return BlocBuilder<PageCubit, int>(
+      builder: (context, currentIndex) {
+        return Scaffold(
+          backgroundColor: kBackgroundColor,
+          body: SafeArea(
+            child: Stack(
+              children: [buildContent(currentIndex), customBottomNavigation()],
+            ),
+          ),
+        );
+      },
     );
   }
 }
