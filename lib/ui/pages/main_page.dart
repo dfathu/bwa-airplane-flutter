@@ -1,7 +1,9 @@
 import 'package:bwa_airplane/cubit/page_cubit.dart';
 import 'package:bwa_airplane/shared/theme.dart';
 import 'package:bwa_airplane/ui/pages/home_page.dart';
+import 'package:bwa_airplane/ui/pages/setting_page.dart';
 import 'package:bwa_airplane/ui/pages/transaction_page.dart';
+import 'package:bwa_airplane/ui/pages/wallet_page.dart';
 // import 'package:bwa_airplane/ui/pages/transaction_page.dart';
 import 'package:bwa_airplane/ui/widgets/custom_bottom_navigation_item.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,10 @@ class MainPage extends StatelessWidget {
           return HomePage();
         case 1:
           return TransactionPage();
+        case 2:
+          return WalletPage();
+        case 3:
+          return SettingPage();
         default:
           return HomePage();
       }

@@ -1,4 +1,3 @@
-import 'package:bwa_airplane/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class TransactionPage extends StatelessWidget {
@@ -6,18 +5,8 @@ class TransactionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: SafeArea(
-          child: ListView(
-        children: [
-          Center(
-            child: Column(
-              children: [Text('Transaksion Page')],
-            ),
-          )
-        ],
-      )),
+    return Center(
+      child: Text('Transaksion Page'),
     );
   }
 }

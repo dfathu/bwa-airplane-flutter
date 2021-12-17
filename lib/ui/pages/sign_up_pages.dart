@@ -1,10 +1,19 @@
+import 'package:bwa_airplane/cubit/auth_cubit.dart';
 import 'package:bwa_airplane/shared/theme.dart';
 import 'package:bwa_airplane/ui/widgets/custom_button.dart';
 import 'package:bwa_airplane/ui/widgets/custom_textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  SignUpPage({Key? key}) : super(key: key);
+
+  TextEditingController nameController = TextEditingController(text: '');
+  TextEditingController emailController = TextEditingController(text: '');
+  TextEditingController passwordController = TextEditingController(text: '');
+  TextEditingController conpassController = TextEditingController(text: '');
+  TextEditingController hobbyController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +32,7 @@ class SignUpPage extends StatelessWidget {
         return CustomTextFormField(
             title: 'Full Name',
             hint: 'Your full name',
+            controller: nameController,
             margin: EdgeInsets.only(bottom: 20));
       }
 
@@ -30,6 +40,7 @@ class SignUpPage extends StatelessWidget {
         return CustomTextFormField(
             title: 'Email Address',
             hint: 'Your email address',
+            controller: emailController,
             margin: EdgeInsets.only(bottom: 20));
       }
 
@@ -38,6 +49,7 @@ class SignUpPage extends StatelessWidget {
             title: 'Password',
             hint: 'Create a secure password',
             isSecure: true,
+            controller: passwordController,
             margin: EdgeInsets.only(bottom: 20));
       }
 
@@ -45,6 +57,7 @@ class SignUpPage extends StatelessWidget {
         return CustomTextFormField(
             title: 'Confirmation Password',
             hint: 'Confirmation your password',
+            controller: conpassController,
             isSecure: true,
             margin: EdgeInsets.only(bottom: 20));
       }
@@ -53,15 +66,39 @@ class SignUpPage extends StatelessWidget {
         return CustomTextFormField(
             title: 'Hobby',
             hint: 'Your hobby',
+            controller: hobbyController,
             margin: EdgeInsets.only(bottom: 30));
       }
 
       Widget submitButton() {
-        return CustomButton(
-            title: 'Create Account',
-            onPressed: () {
-              Navigator.pushNamed(context, '/bonus');
-            });
+        return BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSuccess) {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/bonus', (route) => false);
+            } else if (state is AuthFailed) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: kRedColor, content: Text(state.error)));
+            }
+          },
+          builder: (context, state) {
+            if (state is AuthLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return CustomButton(
+                title: 'Create Account',
+                onPressed: () {
+                  context.read<AuthCubit>().signUp(
+                      name: nameController.text,
+                      email: emailController.text,
+                      password: passwordController.text,
+                      hobby: hobbyController.text);
+                });
+          },
+        );
       }
 
       return Container(
