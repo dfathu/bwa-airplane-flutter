@@ -5,6 +5,7 @@ import 'package:bwa_airplane/ui/pages/bonus_page.dart';
 import 'package:bwa_airplane/ui/pages/get_started_pages.dart';
 import 'package:bwa_airplane/ui/pages/main_page.dart';
 import 'package:bwa_airplane/ui/pages/setting_page.dart';
+import 'package:bwa_airplane/ui/pages/sign_in_pages.dart';
 import 'package:bwa_airplane/ui/pages/sign_up_pages.dart';
 import 'package:bwa_airplane/ui/pages/transaction_page.dart';
 import 'package:bwa_airplane/ui/pages/wallet_page.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashPage(),
           '/get-started': (context) => GetStartedPage(),
           '/sign-up': (context) => SignUpPage(),
+          '/sign-in': (context) => SignInPage(),
           '/bonus': (context) => BonusPage(),
           '/main': (context) => MainPage(),
           '/transaction': (context) => TransactionPage(),

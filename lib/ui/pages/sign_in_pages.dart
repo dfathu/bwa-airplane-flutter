@@ -6,14 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
-class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
+class SignInPage extends StatelessWidget {
+  SignInPage({Key? key}) : super(key: key);
 
-  TextEditingController nameController = TextEditingController(text: '');
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
-  TextEditingController conpassController = TextEditingController(text: '');
-  TextEditingController hobbyController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +18,13 @@ class SignUpPage extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(top: 30),
         child: Text(
-          'Join us and get\nyour next journey',
+          'Sign in with your\nexisting account',
           style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semiBold),
         ),
       );
     }
 
     Widget inputSection() {
-      Widget fullnameInput() {
-        return CustomTextFormField(
-            title: 'Full Name',
-            hint: 'Your full name',
-            controller: nameController,
-            margin: EdgeInsets.only(bottom: 20));
-      }
-
       Widget emailInput() {
         return CustomTextFormField(
             title: 'Email Address',
@@ -47,27 +36,10 @@ class SignUpPage extends StatelessWidget {
       Widget passwordInput() {
         return CustomTextFormField(
             title: 'Password',
-            hint: 'Create a secure password',
+            hint: 'Your password',
             isSecure: true,
             controller: passwordController,
             margin: EdgeInsets.only(bottom: 20));
-      }
-
-      Widget conPassInput() {
-        return CustomTextFormField(
-            title: 'Confirmation Password',
-            hint: 'Confirmation your password',
-            controller: conpassController,
-            isSecure: true,
-            margin: EdgeInsets.only(bottom: 20));
-      }
-
-      Widget hobbyInput() {
-        return CustomTextFormField(
-            title: 'Hobby',
-            hint: 'Your hobby',
-            controller: hobbyController,
-            margin: EdgeInsets.only(bottom: 30));
       }
 
       Widget submitButton() {
@@ -75,7 +47,7 @@ class SignUpPage extends StatelessWidget {
           listener: (context, state) {
             if (state is AuthSuccess) {
               Navigator.pushNamedAndRemoveUntil(
-                  context, '/bonus', (route) => false);
+                  context, '/main', (route) => false);
             } else if (state is AuthFailed) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: kRedColor, content: Text(state.error)));
@@ -89,13 +61,12 @@ class SignUpPage extends StatelessWidget {
             }
 
             return CustomButton(
-                title: 'Create Account',
+                title: 'Sign In',
                 onPressed: () {
-                  context.read<AuthCubit>().signUp(
-                      name: nameController.text,
-                      email: emailController.text,
-                      password: passwordController.text,
-                      hobby: hobbyController.text);
+                  context.read<AuthCubit>().signIn(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
                 });
           },
         );
@@ -108,28 +79,21 @@ class SignUpPage extends StatelessWidget {
             color: kWhiteColor,
             borderRadius: BorderRadius.circular(defaultRadius)),
         child: Column(
-          children: [
-            fullnameInput(),
-            emailInput(),
-            passwordInput(),
-            conPassInput(),
-            hobbyInput(),
-            submitButton()
-          ],
+          children: [emailInput(), passwordInput(), submitButton()],
         ),
       );
     }
 
-    Widget signInButton() {
+    Widget signUpButton() {
       return GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/sign-in');
+          Navigator.pushNamed(context, '/sign-up');
         },
         child: Container(
           alignment: Alignment.center,
           margin: EdgeInsets.only(top: 50, bottom: 73),
           child: Text(
-            'Have an Account ? Sign In',
+            'Dont\'t Have Account ? Sign Up',
             style: greyTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: light,
@@ -145,7 +109,7 @@ class SignUpPage extends StatelessWidget {
         bottom: false,
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-          children: [title(), inputSection(), signInButton()],
+          children: [title(), inputSection(), signUpButton()],
         ),
       ),
     );
